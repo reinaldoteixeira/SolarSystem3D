@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <GL/glext.h>
 #include <cmath>
+#include "./imports/leitorBMP.h"
 
 using namespace std;
 
@@ -11,6 +12,15 @@ using namespace std;
 
 int gameSpeed = 10;
 int _width = 400, _height = 400;
+GLuint textureID[4]; //GLOBAL
+int width_ = 900;
+int heigth_ = 900;
+
+GLdouble bgpos = 0;
+GLdouble r = 0;
+
+GLfloat LIGHT_DIFFUSE[] = {1.0, 0.0, 0.0, 1.0}; //COR VERMELHA
+GLfloat LIGHT_POSITION[] = {0.5, 0.0, -0.5, 1.0};
 
 GLfloat light_diffuse[] = {1.0, 0.0, 0.0, 1.0};
 GLfloat light_ambient[] = {0.1, 0.5, 0.5, 1.0};
@@ -40,32 +50,92 @@ void drawSnowMan(){
 	glColor3f(1.0f, 0.5f , 0.5f);
 	glutSolidCone(0.08f,0.5f,10,2);
 }
-void draw(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
-	gluLookAt(	x, 1.0f, z,
-			x+lx, 1.0f,  z+lz,
-			0.0f, 1.0f,  0.0f);
-    // Desenhar solo
-	glColor3f(0.9f, 0.9f, 0.9f);
-	glBegin(GL_QUADS);
+
+void drawTextureSpace () {
+
+    glBindTexture(GL_TEXTURE_2D, textureID[0]);
+
+	//desenhendo chão
+	glColor3f(1, 1, 1);
+    glBegin(GL_QUADS);
 		glVertex3f(-100.0f, 0.0f, -100.0f);
 		glVertex3f(-100.0f, 0.0f,  100.0f);
 		glVertex3f( 100.0f, 0.0f,  100.0f);
 		glVertex3f( 100.0f, 0.0f, -100.0f);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-    // Desenhar 36 bonecos de neve
-	for(int i = -3; i < 3; i++){
-		for(int j=-3; j < 3; j++) {
-			glPushMatrix();
-			glTranslatef(i*10.0,0,j * 10.0);
-			drawSnowMan();
-			glPopMatrix();
-		}
-	}
-	glutSwapBuffers();
+    glEnd();
+
 }
+
+void configureTexture() {
+
+    glEnable(GL_TEXTURE_2D);
+
+    glGenTextures(3, textureID);
+
+    loadBMP("./images/SUN.bmp");
+
+    glBindTexture(GL_TEXTURE_2D, textureID[0]); //inserindo textura na memoria para configurar ela
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    loadBMP("./images/EARTH.bmp");
+
+    glBindTexture(GL_TEXTURE_2D, textureID[1]); //inserindo textura na memoria para configurar ela
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    loadBMP("./images/MOON.bmp");
+
+    glBindTexture(GL_TEXTURE_2D, textureID[2]); //inserindo textura na memoria para configurar ela
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	loadBMP("./images/SPACE.bmp");
+
+    glBindTexture(GL_TEXTURE_2D, textureID[3]); //inserindo textura na memoria para configurar ela
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+}
+
+void configureLights() {
+
+    glEnable(GL_LIGHTING);
+
+    glEnable(GL_DEPTH_TEST);
+
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, LIGHT_DIFFUSE);
+
+    glLightfv(GL_LIGHT0, GL_POSITION, LIGHT_POSITION);
+
+    glEnable(GL_LIGHT0);
+
+}
+
 void processSpecialKeys(int key, int xx, int yy) {
 	float amount = 0.5f;
 	switch (key) {
@@ -105,17 +175,70 @@ void processNormalKeys(unsigned char key, int x, int y) {
 	if (key == 27)
 		exit(0);
 }
+
+void draw(){
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0, 0, 0.0, 0);
+	glLoadIdentity();
+	gluLookAt(	x, 1.0f, z,
+			x+lx, 1.0f,  z+lz,
+			0.0f, 1.0f,  0.0f);
+
+	drawTextureSpace();
+	
+    // Desenhar 36 bonecos de neve
+	for(int i = -3; i < 3; i++){
+		for(int j=-3; j < 3; j++) {
+			glPushMatrix();
+			glTranslatef(i*10.0,0,j * 10.0);
+			drawSnowMan();
+			glPopMatrix();
+		}
+	}
+	glutSwapBuffers();
+}
+
+void drawTextureCircle() {
+
+    glClearColor(0.0, 0, 0.0, 0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    drawTextureSpace();
+
+    glBindTexture(GL_TEXTURE_2D, textureID[1]);
+
+    glColor3f(1, 1, 1);
+    glBegin(GL_POLYGON);
+    for (double i = 0; i < 2 * M_PI ; i += (2*M_PI) / 32) {
+
+    double X = cos(i) * 0.5;
+    double Y = sin(i) * 0.5;
+
+    double TX = cos(i) * 0.5 + 0.5;
+    double TY = sin(i) * 0.5 + 0.5;
+
+    glTexCoord2d(TX, TY);
+    glVertex2d(X, Y);
+
+    }
+
+    glEnd();
+    glutSwapBuffers();
+
+}
+
 int main(int argc, char **argv){
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowPosition(100,100);
-	glutInitWindowSize(320,320);
+    glutInitWindowSize(width_,heigth_);
 	glutCreateWindow("MY GAME");
 	glutDisplayFunc(draw);
 	glutTimerFunc(10,timerFunc,0);
 	glutKeyboardFunc(processNormalKeys);
 	glutSpecialFunc(processSpecialKeys);
 	configureCam();
+    configureTexture();
 	glutMainLoop();
 	return 0;
 }

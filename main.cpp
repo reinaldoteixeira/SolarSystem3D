@@ -11,7 +11,7 @@ using namespace std;
 //SISTEMA SOLAR 3D
 
 int gameSpeed = 10;
-int _width = 400, _height = 400;
+int _width = 900, _height = 900;
 GLuint textureID[4]; //GLOBAL
 int width_ = 900;
 int heigth_ = 900;
@@ -56,7 +56,7 @@ void drawTextureSpace () {
     glBindTexture(GL_TEXTURE_2D, textureID[0]);
 
 	//desenhendo chão
-	glColor3f(1, 1, 1);
+	glColor3f(0, 0, 0);
     glBegin(GL_QUADS);
 		glVertex3f(-100.0f, 0.0f, -100.0f);
 		glVertex3f(-100.0f, 0.0f,  100.0f);
@@ -122,7 +122,7 @@ void configureTexture() {
 
 }
 
-void configureLights() {
+void configureLights() { //referente as cores / iluminação
 
     glEnable(GL_LIGHTING);
 

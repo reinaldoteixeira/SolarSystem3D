@@ -4,6 +4,7 @@ unsigned int dataPos;     // POSI��O DO ARQUIVO ONDE COME�AM DOS DADOS DA 
 unsigned int width, height; //LARGURA E ALTURA DA IMAGEM
 unsigned int imageSize;   // TAMANHO = width*height*3 (3 BYTES POR DADO, DEVIDO AO R, G e B PARA CADA PIXEL)
 unsigned char * data; //BUFFER QUE CONTER� OS DADOS DA MATRIZ DA IMAGEM
+
 GLuint loadBMP(const char * imagepath){
     FILE * file = fopen(imagepath,"rb");
     if (!file){printf("O ARQUIVO DE IMAGEM NAO EXISTE\n"); return 0;}
@@ -25,6 +26,7 @@ GLuint loadBMP(const char * imagepath){
     if (dataPos==0)      dataPos=54; //O cabe�alho dos arquivos BMP funciona assim (ver slides)
     // Criando o buffer "data" contendo os dados da imagem
     data = new unsigned char [imageSize];
+    
     fread(data,1,imageSize,file);
     fclose(file);
 }

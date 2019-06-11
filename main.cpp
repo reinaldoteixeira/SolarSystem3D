@@ -125,7 +125,7 @@ void configureTexture()
 
 	glEnable(GL_TEXTURE_2D);
 
-	glGenTextures(3, textureID);
+	glGenTextures(9, textureID);
 
 	loadBMP("./images/SUN.bmp");
 
@@ -166,6 +166,54 @@ void configureTexture()
 	loadBMP("./images/SPACE.bmp");
 
 	glBindTexture(GL_TEXTURE_2D, textureID[3]); //inserindo textura na memoria para configurar ela
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	loadBMP("./images/JUPYTER.bmp");
+
+	glBindTexture(GL_TEXTURE_2D, textureID[5]); //inserindo textura na memoria para configurar ela
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	loadBMP("./images/SATURN.bmp");
+
+	glBindTexture(GL_TEXTURE_2D, textureID[6]); //inserindo textura na memoria para configurar ela
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	loadBMP("./images/URANUS.bmp");
+
+	glBindTexture(GL_TEXTURE_2D, textureID[7]); //inserindo textura na memoria para configurar ela
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	loadBMP("./images/NEPTUNE.bmp");
+
+	glBindTexture(GL_TEXTURE_2D, textureID[8]); //inserindo textura na memoria para configurar ela
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
 
@@ -238,6 +286,11 @@ void processNormalKeys(unsigned char key, int x, int y)
 GLUquadricObj *sun = NULL;
 GLUquadricObj *earth = NULL;
 
+GLUquadricObj *jupyter = NULL;
+GLUquadricObj *saturn = NULL;
+GLUquadricObj *uranus = NULL;
+GLUquadricObj *neptune = NULL;
+
 void loadTextures()
 {
 
@@ -252,6 +305,30 @@ void loadTextures()
 	gluQuadricDrawStyle(earth, GLU_FILL);
 	gluQuadricTexture(earth, GL_TRUE);
 	gluQuadricNormals(earth, GLU_SMOOTH);
+
+	jupyter = gluNewQuadric();
+
+	gluQuadricDrawStyle(jupyter, GLU_FILL);
+	gluQuadricTexture(jupyter, GL_TRUE);
+	gluQuadricNormals(jupyter, GLU_SMOOTH);
+
+	saturn = gluNewQuadric();
+
+	gluQuadricDrawStyle(saturn, GLU_FILL);
+	gluQuadricTexture(saturn, GL_TRUE);
+	gluQuadricNormals(saturn, GLU_SMOOTH);
+
+	uranus = gluNewQuadric();
+
+	gluQuadricDrawStyle(uranus, GLU_FILL);
+	gluQuadricTexture(uranus, GL_TRUE);
+	gluQuadricNormals(uranus, GLU_SMOOTH);
+
+	neptune = gluNewQuadric();
+
+	gluQuadricDrawStyle(neptune, GLU_FILL);
+	gluQuadricTexture(neptune, GL_TRUE);
+	gluQuadricNormals(neptune, GLU_SMOOTH);
 }
 
 void drawSun()
@@ -285,6 +362,53 @@ void drawMercury()
 	glPopMatrix();
 }
 
+double jupyterRot = 0.0;
+void drawJupyter()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[5]);
+	glPushMatrix();
+	glRotated(jupyterRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(12.0f, 0.0f, 0.0f);
+	gluSphere(jupyter, 1.0f, 20, 20);
+	glPopMatrix();
+}
+
+double saturnRot = 0.0;
+void drawSaturn()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[6]);
+	glPushMatrix();
+	glRotated(saturnRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(14.0f, 0.0f, 0.0f);
+	gluSphere(saturn, 0.85f, 20, 20);
+	glPopMatrix();
+}
+
+double uranusRot = 0.0;
+void drawUranus()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[7]);
+	glPushMatrix();
+	glRotated(uranusRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(16.0f, 0.0f, 0.0f);
+	gluSphere(uranus, 0.35f, 20, 20);
+	glPopMatrix();
+}
+
+double neptuneRot = 0.0;
+void drawNeptune()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[8]);
+	glPushMatrix();
+	glRotated(neptuneRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(18.0f, 0.0f, 0.0f);
+	gluSphere(neptune, 0.35f, 20, 20);
+	glPopMatrix();
+}
 
 void drawTextureCircle()
 {
@@ -327,6 +451,10 @@ void draw()
 	// drawTextureSpace();
 	drawSun();
 	drawEarth();
+	drawSaturn();
+	drawJupyter();
+	drawUranus();
+	drawNeptune();
 
 	// gluSphere(sphere, 2.0, 20, 20);
 	// drawTextureCircle();

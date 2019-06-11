@@ -256,9 +256,9 @@ void loadTextures()
 
 void drawSun()
 {
-	glBindTexture(GL_TEXTURE_2D, textureID[2]);
+	glBindTexture(GL_TEXTURE_2D, textureID[0]);
 	glTranslatef(0.0f, 1.0f, 0.0f);
-	gluSphere(sun, 1.0f, 20, 20);
+	gluSphere(sun, 2.0f, 20, 20);
 }
 
 double earthRot = 0.0;
@@ -268,10 +268,23 @@ void drawEarth()
 	glPushMatrix();
 	glRotated(earthRot += 0.1, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(8.0f, 0.0f, 0.0f);
+	gluSphere(earth, 0.25f, 20, 20);
+	glPopMatrix();
+}
+
+// double earthRot = 0.0;
+void drawMercury()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[1]);
+	glPushMatrix();
+	glRotated(earthRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(4.0f, 0.0f, 0.0f);
 	gluSphere(earth, 0.25f, 20, 20);
 	glPopMatrix();
 }
+
 
 void drawTextureCircle()
 {
@@ -311,7 +324,7 @@ void draw()
 			  x + lx, 1.0f, z + lz,
 			  0.0f, 1.0f, 0.0f);
 
-	drawTextureSpace();
+	// drawTextureSpace();
 	drawSun();
 	drawEarth();
 

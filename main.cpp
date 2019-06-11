@@ -139,7 +139,7 @@ void configureTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	loadBMP("./images/EARTH.bmp");
+	loadBMP("./images/MERCURY.bmp");
 
 	glBindTexture(GL_TEXTURE_2D, textureID[1]); //inserindo textura na memoria para configurar ela
 
@@ -151,7 +151,7 @@ void configureTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	loadBMP("./images/MOON.bmp");
+	loadBMP("./images/VENUS.bmp");
 
 	glBindTexture(GL_TEXTURE_2D, textureID[2]); //inserindo textura na memoria para configurar ela
 
@@ -163,7 +163,7 @@ void configureTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	loadBMP("./images/SPACE.bmp");
+	loadBMP("./images/EARTH.bmp");
 
 	glBindTexture(GL_TEXTURE_2D, textureID[3]); //inserindo textura na memoria para configurar ela
 
@@ -175,9 +175,22 @@ void configureTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+	//inserindo textura na memoria para configurar ela
+	loadBMP("./images/MARS.bmp");
+
+	glBindTexture(GL_TEXTURE_2D, textureID[4]); //inserindo textura na memoria para configurar ela
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	loadBMP("./images/JUPYTER.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[5]); //inserindo textura na memoria para configurar ela
+	glBindTexture(GL_TEXTURE_2D, textureID[5]);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
 
@@ -284,7 +297,10 @@ void processNormalKeys(unsigned char key, int x, int y)
 }
 
 GLUquadricObj *sun = NULL;
+GLUquadricObj *mercury = NULL;
+GLUquadricObj *venus = NULL;
 GLUquadricObj *earth = NULL;
+GLUquadricObj *mars = NULL;
 
 GLUquadricObj *jupyter = NULL;
 GLUquadricObj *saturn = NULL;
@@ -300,11 +316,29 @@ void loadTextures()
 	gluQuadricTexture(sun, GL_TRUE);
 	gluQuadricNormals(sun, GLU_SMOOTH);
 
+	mercury = gluNewQuadric();
+
+	gluQuadricDrawStyle(mercury, GLU_FILL);
+	gluQuadricTexture(mercury, GL_TRUE);
+	gluQuadricNormals(mercury, GLU_SMOOTH);
+
+	venus = gluNewQuadric();
+
+	gluQuadricDrawStyle(venus, GLU_FILL);
+	gluQuadricTexture(venus, GL_TRUE);
+	gluQuadricNormals(venus, GLU_SMOOTH);
+
 	earth = gluNewQuadric();
 
 	gluQuadricDrawStyle(earth, GLU_FILL);
 	gluQuadricTexture(earth, GL_TRUE);
 	gluQuadricNormals(earth, GLU_SMOOTH);
+
+	mars = gluNewQuadric();
+
+	gluQuadricDrawStyle(mars, GLU_FILL);
+	gluQuadricTexture(mars, GL_TRUE);
+	gluQuadricNormals(mars, GLU_SMOOTH);
 
 	jupyter = gluNewQuadric();
 
@@ -338,27 +372,51 @@ void drawSun()
 	gluSphere(sun, 2.0f, 20, 20);
 }
 
-double earthRot = 0.0;
-void drawEarth()
-{
-	glBindTexture(GL_TEXTURE_2D, textureID[1]);
-	glPushMatrix();
-	glRotated(earthRot += 0.1, 0, 1, 0);
-	glColor3f(0.0f, 0.9f, 1.0f);
-	glTranslatef(8.0f, 0.0f, 0.0f);
-	gluSphere(earth, 0.25f, 20, 20);
-	glPopMatrix();
-}
-
-// double earthRot = 0.0;
+double mercuryhRot = 0.0;
 void drawMercury()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[1]);
 	glPushMatrix();
-	glRotated(earthRot += 0.1, 0, 1, 0);
+	glRotated(mercuryhRot += 0.1, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(4.0f, 0.0f, 0.0f);
-	gluSphere(earth, 0.25f, 20, 20);
+	gluSphere(mercury, 0.1f, 20, 20);
+	glPopMatrix();
+}
+
+double venusRot = 0.0;
+void drawVenus()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[2]);
+	glPushMatrix();
+	glRotated(venusRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(6.0f, 0.0f, 0.0f);
+	gluSphere(venus, 0.2f, 20, 20);
+	glPopMatrix();
+}
+
+double earthRot = 0.0;
+void drawEarth()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[3]);
+	glPushMatrix();
+	glRotated(earthRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(8.0f, 0.0f, 0.0f);
+	gluSphere(earth, 0.3f, 20, 20);
+	glPopMatrix();
+}
+
+double marsRot = 0.0;
+void drawMars()
+{
+	glBindTexture(GL_TEXTURE_2D, textureID[4]);
+	glPushMatrix();
+	glRotated(marsRot += 0.1, 0, 1, 0);
+	glColor3f(0.0f, 0.9f, 1.0f);
+	glTranslatef(10.0f, 0.0f, 0.0f);
+	gluSphere(mars, 0.2f, 20, 20);
 	glPopMatrix();
 }
 
@@ -450,14 +508,14 @@ void draw()
 
 	// drawTextureSpace();
 	drawSun();
+	drawMercury();
+	drawVenus();
 	drawEarth();
+	drawMars();
 	drawSaturn();
 	drawJupyter();
 	drawUranus();
 	drawNeptune();
-
-	// gluSphere(sphere, 2.0, 20, 20);
-	// drawTextureCircle();
 
 	glutSwapBuffers();
 }

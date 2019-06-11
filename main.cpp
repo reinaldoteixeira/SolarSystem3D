@@ -12,7 +12,7 @@ using namespace std;
 
 int gameSpeed = 10;
 int _width = 900, _height = 900;
-GLuint textureID[4]; //GLOBAL
+GLuint textureID[9]; //GLOBAL
 int width_ = 900;
 int heigth_ = 900;
 

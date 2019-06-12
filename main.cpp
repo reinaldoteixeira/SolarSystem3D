@@ -352,7 +352,7 @@ void drawVenus()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[2]);
 	glPushMatrix();
-	glRotated(venusRot += 0.1, 0, 1, 0);
+	glRotated(venusRot += 0.12, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(6.0f, 0.0f, 0.0f);
 	gluSphere(venus, 0.2f, 20, 20);
@@ -364,7 +364,7 @@ void drawEarth()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[3]);
 	glPushMatrix();
-	glRotated(earthRot += 0.1, 0, 1, 0);
+	glRotated(earthRot += 0.14, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(8.0f, 0.0f, 0.0f);
 	gluSphere(earth, 0.3f, 20, 20);
@@ -376,7 +376,7 @@ void drawMars()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[4]);
 	glPushMatrix();
-	glRotated(marsRot += 0.1, 0, 1, 0);
+	glRotated(marsRot += 0.16, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(10.0f, 0.0f, 0.0f);
 	gluSphere(mars, 0.2f, 20, 20);
@@ -388,7 +388,7 @@ void drawJupyter()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[5]);
 	glPushMatrix();
-	glRotated(jupyterRot += 0.1, 0, 1, 0);
+	glRotated(jupyterRot += 0.18, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(12.0f, 0.0f, 0.0f);
 	gluSphere(jupyter, 1.0f, 20, 20);
@@ -400,7 +400,7 @@ void drawSaturn()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[6]);
 	glPushMatrix();
-	glRotated(saturnRot += 0.1, 0, 1, 0);
+	glRotated(saturnRot += 0.2, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(14.0f, 0.0f, 0.0f);
 	gluSphere(saturn, 0.85f, 20, 20);
@@ -412,7 +412,7 @@ void drawUranus()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[7]);
 	glPushMatrix();
-	glRotated(uranusRot += 0.1, 0, 1, 0);
+	glRotated(uranusRot += 0.22, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(16.0f, 0.0f, 0.0f);
 	gluSphere(uranus, 0.35f, 20, 20);
@@ -424,7 +424,7 @@ void drawNeptune()
 {
 	glBindTexture(GL_TEXTURE_2D, textureID[8]);
 	glPushMatrix();
-	glRotated(neptuneRot += 0.1, 0, 1, 0);
+	glRotated(neptuneRot += 0.24, 0, 1, 0);
 	glColor3f(0.0f, 0.9f, 1.0f);
 	glTranslatef(18.0f, 0.0f, 0.0f);
 	gluSphere(neptune, 0.35f, 20, 20);

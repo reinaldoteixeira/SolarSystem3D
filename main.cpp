@@ -8,57 +8,32 @@
 
 using namespace std;
 
-//SISTEMA SOLAR 3D
-
 int gameSpeed = 10;
 int _width = 900, _height = 900;
-GLuint textureID[9]; //GLOBAL
+GLuint textureID[9];
 int width_ = 900;
 int heigth_ = 900;
 
 GLdouble bgpos = 0;
 GLdouble r = 0;
 
-GLfloat LIGHT_DIFFUSE[] = {1.0, 1.0, 1.0, 1.0}; //COR VERMELHA
+GLfloat LIGHT_DIFFUSE[] = {1.0, 1.0, 1.0, 1.0};
 GLfloat LIGHT_POSITION[] = {0.5, 0.0, -0.5, 1.0};
 
 GLfloat light_diffuse[] = {1.0, 0.0, 0.0, 1.0};
 GLfloat light_ambient[] = {0.1, 0.5, 0.5, 1.0};
 GLfloat light_specular[] = {1.0, 1.0, 1.0, 1.0};
 GLfloat light_position[] = {1.0, 0.0, -5.0, 0.0};
-GLdouble angle = 0.0;			//Angulo da camera
-GLdouble lx = 0.0f, lz = -1.0f; //Direção da camera
-GLdouble x = 0.0f, z = 5.0f;	//Posição da camera
 
-void drawSnowMan()
-{
-	glColor3f(1.0f, 1.0f, 1.0f);
-	// Desenhar corpo
-	glTranslatef(0.0f, 0.75f, 0.0f);
-	glutSolidSphere(0.75f, 20, 20);
-	// Desenhar cabeça
-	glTranslatef(0.0f, 1.0f, 0.0f);
-	glutSolidSphere(0.25f, 20, 20);
-	// Desenhar olhos
-	glPushMatrix();
-	glColor3f(0.0f, 0.0f, 0.0f);
-	glTranslatef(0.05f, 0.10f, 0.18f);
-	glutSolidSphere(0.05f, 10, 10);
-	glTranslatef(-0.1f, 0.0f, 0.0f);
-	glutSolidSphere(0.05f, 10, 10);
-	glPopMatrix();
-	// Desenhar nariz
-	glColor3f(1.0f, 0.5f, 0.5f);
-	glutSolidCone(0.08f, 0.5f, 10, 2);
-}
+GLdouble angle = 0.0;
+GLdouble lx = 0.0f, lz = -1.0f;
+GLdouble x = 0.0f, z = 5.0f;
 
 void drawTextureSpace()
 {
 
 	glBindTexture(GL_TEXTURE_2D, textureID[3]);
 
-	//desenhendo chão
-	// glColor3f(1, 1, 1);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0, 0);
 	glVertex3f(-100.0f, -15.0f, -100.0f);
@@ -129,9 +104,8 @@ void configureTexture()
 
 	loadBMP("./images/SUN.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[0]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -141,9 +115,8 @@ void configureTexture()
 
 	loadBMP("./images/MERCURY.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[1]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[1]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -153,9 +126,8 @@ void configureTexture()
 
 	loadBMP("./images/VENUS.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[2]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[2]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -165,9 +137,8 @@ void configureTexture()
 
 	loadBMP("./images/EARTH.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[3]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[3]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -175,12 +146,10 @@ void configureTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	//inserindo textura na memoria para configurar ela
 	loadBMP("./images/MARS.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[4]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[4]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -192,7 +161,7 @@ void configureTexture()
 
 	glBindTexture(GL_TEXTURE_2D, textureID[5]);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -202,9 +171,8 @@ void configureTexture()
 
 	loadBMP("./images/SATURN.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[6]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[6]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -214,9 +182,8 @@ void configureTexture()
 
 	loadBMP("./images/URANUS.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[7]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[7]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -226,9 +193,8 @@ void configureTexture()
 
 	loadBMP("./images/NEPTUNE.bmp");
 
-	glBindTexture(GL_TEXTURE_2D, textureID[8]); //inserindo textura na memoria para configurar ela
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data); //se necessário ver documentação para entender os parametros.
+	glBindTexture(GL_TEXTURE_2D, textureID[8]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -238,8 +204,7 @@ void configureTexture()
 }
 
 void configureLights()
-{ //referente as cores / iluminação
-
+{
 	glEnable(GL_LIGHTING);
 
 	glEnable(GL_DEPTH_TEST);
@@ -301,7 +266,6 @@ GLUquadricObj *mercury = NULL;
 GLUquadricObj *venus = NULL;
 GLUquadricObj *earth = NULL;
 GLUquadricObj *mars = NULL;
-
 GLUquadricObj *jupyter = NULL;
 GLUquadricObj *saturn = NULL;
 GLUquadricObj *uranus = NULL;
@@ -309,7 +273,6 @@ GLUquadricObj *neptune = NULL;
 
 void loadTextures()
 {
-
 	sun = gluNewQuadric();
 
 	gluQuadricDrawStyle(sun, GLU_FILL);
@@ -468,35 +431,6 @@ void drawNeptune()
 	glPopMatrix();
 }
 
-void drawTextureCircle()
-{
-
-	// glClearColor(0.0, 0, 0.0, 0);
-	// glClear(GL_COLOR_BUFFER_BIT);
-
-	// drawTextureSpace();
-
-	glBindTexture(GL_TEXTURE_2D, textureID[1]);
-
-	glColor3f(1, 1, 1);
-	glBegin(GL_POLYGON);
-	for (double i = 0; i < 2 * M_PI; i += (2 * M_PI) / 32)
-	{
-
-		double X = cos(i) * 0.5;
-		double Y = sin(i) * 0.5;
-
-		double TX = cos(i) * 0.5 + 0.5;
-		double TY = sin(i) * 0.5 + 0.5;
-
-		glTexCoord2d(TX, TY);
-		glVertex2d(X, Y);
-	}
-
-	glEnd();
-	// glutSwapBuffers();
-}
-
 void draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -506,7 +440,6 @@ void draw()
 			  x + lx, 1.0f, z + lz,
 			  0.0f, 1.0f, 0.0f);
 
-	// drawTextureSpace();
 	drawSun();
 	drawMercury();
 	drawVenus();
@@ -526,7 +459,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(width_, heigth_);
-	glutCreateWindow("SISTEMA SOLAR");
+	glutCreateWindow("SOLAR SYSTEM");
 	glutDisplayFunc(draw);
 	glutTimerFunc(10, timerFunc, 0);
 	glutKeyboardFunc(processNormalKeys);
